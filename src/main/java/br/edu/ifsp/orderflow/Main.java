@@ -4,16 +4,30 @@ import br.edu.ifsp.orderflow.domain.Cliente;
 import br.edu.ifsp.orderflow.domain.ItemPedido;
 import br.edu.ifsp.orderflow.domain.Pedido;
 import br.edu.ifsp.orderflow.domain.Produto;
+import br.edu.ifsp.orderflow.infra.ConsoleNotificacaoService;
+import br.edu.ifsp.orderflow.infra.FakePagamentoGateway;
 import br.edu.ifsp.orderflow.infra.InMemoryEstoqueService;
-import br.edu.ifsp.orderflow.service.IEstoqueService;
+import br.edu.ifsp.orderflow.infra.InMemoryPedidoRepository;
+import br.edu.ifsp.orderflow.service.*;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public class Main {
 
     public static void main(String[] args) {
 
         IEstoqueService estoqueService = new InMemoryEstoqueService();
+        IPedidoRepository pedidoRepository = new InMemoryPedidoRepository();
+        IPagamentoGateway pagamentoGateway = new FakePagamentoGateway();
+        INotificacaoService notificacaoService = new ConsoleNotificacaoService();
+
+        PedidoService pedidoService = new PedidoService(
+                estoqueService,
+                pedidoRepository,
+                pagamentoGateway, 
+                notificacaoService
+        );
 
         Produto mouse = new Produto(
                 "SKU-1",
@@ -41,22 +55,11 @@ public class Main {
         Cliente bruno = new Cliente("Bruno", "bruno@gmail.com");
 
         Pedido pedido1 = new Pedido(ana);
-        pedido1.AdicionarItem(new ItemPedido(mouse, 2));
+        pedido1.AdicionarItem(new ItemPedido(mouse, 21));
         pedido1.AdicionarItem(new ItemPedido(teclado, 2));
 
-        boolean reservado = estoqueService.reservar(pedido1);
+        Pedido pedido = pedidoService.processar(pedido1);
 
-        if (!reservado) {
-            System.out.println("Não foi reservado");
-        } else {
-            System.out.println("Reservado com sucesso!");
-        }
-
-        Pedido pedido2 = new Pedido(bruno);
-        pedido2.AdicionarItem(new ItemPedido(monitor, 2));
-        pedido2.AdicionarItem(new ItemPedido(teclado, 5));
-
-        System.out.println(pedido1);
-        System.out.println(pedido2);
+        System.out.println(pedido);
     }
 }

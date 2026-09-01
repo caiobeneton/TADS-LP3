@@ -13,6 +13,8 @@ public class InMemoryEstoqueService implements IEstoqueService {
 
     private final Map<String, Integer> estoque = new HashMap<>();
 
+
+
     @Override
     public void adicionarEstoque(Produto produto, int quantidade) {
         int valorAtual = this.estoque.getOrDefault(produto.getId(), 0);
@@ -23,6 +25,14 @@ public class InMemoryEstoqueService implements IEstoqueService {
     @Override
     public int quantidadeDisponivel(Produto produto) {
         return this.estoque.getOrDefault(produto.getId(), 0);
+    }
+
+    private void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @Override
