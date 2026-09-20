@@ -1,7 +1,11 @@
-package br.edu.ifsp.orderflow.service;
+package br.edu.ifsp.orderflow.infra;
 
 import br.edu.ifsp.orderflow.domain.Pedido;
 import br.edu.ifsp.orderflow.domain.ResultadoPagamento;
+import br.edu.ifsp.orderflow.service.IEstoqueService;
+import br.edu.ifsp.orderflow.service.INotificacaoService;
+import br.edu.ifsp.orderflow.service.IPagamentoGateway;
+import br.edu.ifsp.orderflow.service.IPedidoRepository;
 
 public class PedidoService {
 

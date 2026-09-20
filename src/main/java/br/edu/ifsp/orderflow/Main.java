@@ -4,14 +4,11 @@ import br.edu.ifsp.orderflow.domain.Cliente;
 import br.edu.ifsp.orderflow.domain.ItemPedido;
 import br.edu.ifsp.orderflow.domain.Pedido;
 import br.edu.ifsp.orderflow.domain.Produto;
-import br.edu.ifsp.orderflow.infra.ConsoleNotificacaoService;
-import br.edu.ifsp.orderflow.infra.FakePagamentoGateway;
-import br.edu.ifsp.orderflow.infra.InMemoryEstoqueService;
-import br.edu.ifsp.orderflow.infra.InMemoryPedidoRepository;
+import br.edu.ifsp.orderflow.infra.*;
+import br.edu.ifsp.orderflow.infra.PedidoService;
 import br.edu.ifsp.orderflow.service.*;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 public class Main {
 
