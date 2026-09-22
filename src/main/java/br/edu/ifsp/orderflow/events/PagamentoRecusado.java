@@ -5,5 +5,6 @@ import java.time.Instant;
 public record PagamentoRecusado(
         String pedidoId,
         String transacaoId,
-        Instant ocorridoEm
+        Instant ocorridoEm,
+        String motivo
 ) implements IDomainEvent {}
